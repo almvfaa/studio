@@ -1,0 +1,22 @@
+{
+  "rules": {
+    ".read": "true",
+    ".write": "false"
+    /*
+      a) ¿Cómo cumple tu código con CADA UNA de las instrucciones y restricciones?
+      1. La regla raíz implícita (.) establece explícitamente que .write es false.
+      2. La regla raíz implícita (.) establece explícitamente que .read es true.
+      3. No se definen reglas más específicas; las reglas se aplican globalmente a toda la base de datos.
+      4. El formato del archivo es JSON válido.
+
+      b) ¿Por qué es esta política de seguridad la más adecuada?
+      Esta política es ideal para una aplicación de análisis de datos sin autenticación porque garantiza la máxima integridad de los datos. Al denegar todas las escrituras, se previene cualquier alteración, ya sea maliciosa o accidental. La lectura global permite que la aplicación cliente (el dashboard) acceda libremente a los datos para visualización sin la complejidad y sobrecarga de un sistema de autenticación, que no es necesario ya que los datos no son sensibles.
+
+      c) ¿Cuál es la dependencia de este módulo con otros componentes del sistema?
+      Este módulo es una dependencia fundamental para CUALQUIER cliente que intente acceder a la Realtime Database (por ejemplo, el frontend de Next.js). Sin embargo, NO tiene dependencias de otros módulos. Es importante destacar que los servicios con privilegios de administrador (como Cloud Functions o el SDK de Admin) eluden estas reglas, por lo que no dependen de ellas para su acceso.
+
+      d) ¿Qué posible punto de fallo o caso extremo NO se maneja en este código?
+      El caso extremo no manejado es la necesidad de un rol de 'Administrador' o 'Editor de Contenido' que necesite modificar los datos a través de la aplicación cliente. Este caso se omitió deliberadamente siguiendo el principio de 'denegar por defecto' y el requisito de una aplicación de solo lectura. Si se requiriera tal rol, la solución correcta no sería debilitar estas reglas, sino crear un backend seguro (por ejemplo, una Cloud Function protegida) que maneje la autenticación y autorización del administrador para realizar escrituras, manteniendo la base de datos cerrada al público en general.
+    */
+  }
+}

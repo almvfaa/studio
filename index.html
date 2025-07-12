@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Datos Históricos</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Hoja de estilos local -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50 p-4">
+    <header class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">Sistema de Análisis de Datos Históricos</h1>
+    </header>
+
+    <!-- Filtros -->
+    <section class="mb-6 p-4 bg-white rounded shadow">
+        <h2 class="text-lg font-semibold mb-3">Filtros</h2>
+        <div id="filters-container" class="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <select class="border p-2 rounded">
+                <option>Año</option>
+            </select>
+            <select class="border p-2 rounded">
+                <option>Mes</option>
+            </select>
+            <select class="border p-2 rounded">
+                <option>Capítulo Gasto</option>
+            </select>
+            <select class="border p-2 rounded">
+                <option>Concepto Gasto</option>
+            </select>
+            <input type="text" placeholder="Descripción" class="border p-2 rounded">
+        </div>
+    </section>
+
+    <!-- Resultados y Tabla -->
+    <section>
+        <div class="flex justify-between items-center mb-3">
+            <h2 class="text-lg font-semibold">Artículos</h2>
+            <div id="results-count" class="text-sm text-gray-600">0 resultados</div>
+        </div>
+        
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white rounded shadow">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="py-2 px-4 text-left">Código Artículo</th>
+                        <th class="py-2 px-4 text-left">Descripción</th>
+                        <th class="py-2 px-4 text-left">Capítulo Gasto</th>
+                        <th class="py-2 px-4 text-left">Concepto Gasto</th>
+                    </tr>
+                </thead>
+                <tbody id="articles-table-body">
+                    <!-- Datos serán insertados dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Modal de Detalle (oculto por defecto) -->
+    <div id="details-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-auto">
+            <div class="p-6">
+                <!-- Encabezado del modal -->
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold">Detalle del Artículo</h3>
+                    <button id="modal-close-btn" class="text-gray-500 hover:text-gray-700">
+                        ✕
+                    </button>
+                </div>
+                
+                <!-- Información del artículo -->
+                <div id="modal-article-info" class="mb-6 p-4 bg-gray-50 rounded">
+                    <!-- Detalles cargados dinámicamente -->
+                </div>
+                
+                <!-- Tabla de historial -->
+                <h4 class="font-semibold mb-3">Historial de Inventario</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="py-2 px-4 text-left">Año</th>
+                                <th class="py-2 px-4 text-left">Mes</th>
+                                <th class="py-2 px-4 text-left">Inv. Inicial</th>
+                                <th class="py-2 px-4 text-left">Entradas</th>
+                                <th class="py-2 px-4 text-left">Salidas</th>
+                                <th class="py-2 px-4 text-left">Inv. Final</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modal-history-table-body">
+                            <!-- Datos históricos cargados dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts al final del body -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
