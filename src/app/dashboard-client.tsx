@@ -18,7 +18,6 @@ import InventoryChart from "@/components/inventory-chart";
 import InventoryTable from "@/components/inventory-table";
 
 import {
-  loadSampleData,
   getFilterOptions,
   getInventoryAnalysis,
 } from "./actions";
@@ -30,7 +29,7 @@ import type {
   AnalysisResult,
   Filters,
 } from "@/lib/types";
-import { Database, TrendingUp, ArrowRight, ArrowLeft, BarChart, List } from "lucide-react";
+import { TrendingUp, ArrowRight, ArrowLeft, BarChart, List } from "lucide-react";
 
 export default function DashboardClient() {
   const { toast } = useToast();
@@ -53,20 +52,6 @@ export default function DashboardClient() {
     getFilterOptions("capitulos_gasto").then(setCapitulos);
     handleAnalyze(); // Initial analysis
   }, []);
-
-  const handleLoadData = () => {
-    startTransition(async () => {
-      const result = await loadSampleData();
-      toast({
-        title: result.success ? "Éxito" : "Error",
-        description: result.message,
-        variant: result.success ? "default" : "destructive",
-      });
-      if (result.success) {
-        getFilterOptions("capitulos_gasto").then(setCapitulos);
-      }
-    });
-  };
 
   const handleAnalyze = () => {
     const filters: Filters = {
@@ -118,18 +103,6 @@ export default function DashboardClient() {
 
   return (
     <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>Controles de Datos</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Button onClick={handleLoadData} disabled={isPending}>
-            <Database className="mr-2 h-4 w-4" />
-            {isPending ? "Cargando..." : "Cargar Catálogos y Datos de Prueba"}
-          </Button>
-        </CardContent>
-      </Card>
-
       <Card>
         <CardHeader>
           <CardTitle>Filtros Jerárquicos</CardTitle>
